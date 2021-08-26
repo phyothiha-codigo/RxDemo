@@ -43,6 +43,9 @@
 		AFF2CF7326C12D75007E607A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFF2CF7126C12D75007E607A /* Main.storyboard */; };
 		AFF2CF7526C12D76007E607A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFF2CF7426C12D76007E607A /* Assets.xcassets */; };
 		AFF2CF7826C12D76007E607A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFF2CF7626C12D76007E607A /* LaunchScreen.storyboard */; };
+		D43805E626D794B0004C925E /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43805E526D794B0004C925E /* LoginVM.swift */; };
+		D43805EA26D795C5004C925E /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43805E926D795C5004C925E /* Validator.swift */; };
+		D43805EC26D79609004C925E /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43805EB26D79609004C925E /* Validation.swift */; };
 		E97B7A839AAB0C17016B6093 /* Pods_RxSwiftDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32F9943A15AD1B910DF76FE6 /* Pods_RxSwiftDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +92,9 @@
 		AFF2CF7426C12D76007E607A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AFF2CF7726C12D76007E607A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AFF2CF7926C12D76007E607A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D43805E526D794B0004C925E /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
+		D43805E926D795C5004C925E /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
+		D43805EB26D79609004C925E /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				AF14009C26C3FBD800567998 /* LoginVC.swift */,
+				D43805E526D794B0004C925E /* LoginVM.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -206,6 +213,8 @@
 				AF516FEC26C1474B009D67E8 /* ErrorTracker.swift */,
 				AF516FF026C14D3A009D67E8 /* ActivityTracker.swift */,
 				AF14009E26C3FD0400567998 /* AppStoryboard.swift */,
+				D43805E926D795C5004C925E /* Validator.swift */,
+				D43805EB26D79609004C925E /* Validation.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -447,6 +456,7 @@
 				AF516FF726C152E1009D67E8 /* UIViewController+Extension.swift in Sources */,
 				AFA6DA5C26CAAA63000F4357 /* PersonVC.swift in Sources */,
 				AF516FE426C13621009D67E8 /* Movie.swift in Sources */,
+				D43805E626D794B0004C925E /* LoginVM.swift in Sources */,
 				AFC457A426C1761A00520F38 /* SearchMovie.swift in Sources */,
 				AF1400A126C3FE7100567998 /* NSObject.swift in Sources */,
 				AF14009D26C3FBD800567998 /* LoginVC.swift in Sources */,
@@ -458,6 +468,7 @@
 				AFF2CF6C26C12D75007E607A /* AppDelegate.swift in Sources */,
 				AF3763F026C6673600689924 /* MovieDetailRouter.swift in Sources */,
 				AF516FE126C134D5009D67E8 /* MovieCell.swift in Sources */,
+				D43805EA26D795C5004C925E /* Validator.swift in Sources */,
 				AFF2CF6E26C12D75007E607A /* SceneDelegate.swift in Sources */,
 				AF3763EA26C643AD00689924 /* MovieDetailVM.swift in Sources */,
 				AF516FED26C1474B009D67E8 /* ErrorTracker.swift in Sources */,
@@ -467,6 +478,7 @@
 				AF516FF326C14D8F009D67E8 /* MovieRouter.swift in Sources */,
 				AF3763EC26C64A0000689924 /* String+Extension.swift in Sources */,
 				AF516FDA26C13474009D67E8 /* MovieVC.swift in Sources */,
+				D43805EC26D79609004C925E /* Validation.swift in Sources */,
 				AF516FE626C1374C009D67E8 /* Endpoint.swift in Sources */,
 				AF14009F26C3FD0400567998 /* AppStoryboard.swift in Sources */,
 				AF516FDD26C134A0009D67E8 /* MovieVM.swift in Sources */,

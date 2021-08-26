@@ -300,6 +300,9 @@
                                 <state key="normal" title="Log In">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="gotToMovie:" destination="Qmi-ho-R1u" eventType="touchUpInside" id="Hgw-Jy-06x"/>
+                                </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walking" translatesAutoresizingMaskIntoConstraints="NO" id="DOy-Ha-j9s">
                                 <rect key="frame" x="0.0" y="602" width="30" height="30"/>

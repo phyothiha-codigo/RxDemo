@@ -30,6 +30,7 @@ class LoginVC: UIViewController {
     
     var isLoading: Bool = false
     lazy var bag = DisposeBag()
+    let vm = LoginVM()
     
     private enum Control: String {
         case titleLabel
@@ -73,38 +74,36 @@ class LoginVC: UIViewController {
     
     private func setupBindings() {
         
-        let userNameValidaton = txtUsername.rx.text.orEmpty
-            .map { $0.count >= requiredUserNameLength }
-            .share()
-                
-        let passwordValidation = txtPassword.rx.text.orEmpty
-            .map(digitsOnly)
-            .do(onNext: setPreservingCursor(on: txtPassword))
-            .map { $0.count >= requiredPasswordLength }
-            .share()
+        let formInput = Observable.combineLatest(
+            txtUsername.rx.text.orEmpty,
+            txtPassword.rx.text.orEmpty.map(digitsOnly).do(onNext: setPreservingCursor(on: txtPassword))
+        ).map(LoginVM.FormInput.init)
         
-        let allValid = Observable
-            .combineLatest(userNameValidaton, passwordValidation) { $0 && $1}
-            .debug()
+        let input = LoginVM.Input.init(formInput: formInput)
         
-        allValid
-            .bind(to: rx.isEnable)
+        let output = vm.create(input: input)
+        
+        output.formErrors
+            .skip(2)
+            .drive(onNext:{
+                self.resetErrors()
+                $0.forEach { error in
+                    switch error.type {
+                    case .email:
+                        self.lblEmail.textColor = .red
+                        self.txtUsername.layer.borderColor = UIColor.red.cgColor
+                        break
+                    case .password:
+                        self.lblPassword.textColor = .red
+                        self.txtPassword.layer.borderColor = UIColor.red.cgColor
+                        break
+                    }
+                }
+            })
             .disposed(by: bag)
         
-        userNameValidaton
-            .skip(1)
-            .bind(to: rx.userNameValidation)
-            .disposed(by: bag)
-        
-        passwordValidation
-            .skip(1)
-            .bind(to: rx.isPasswordInvalid)
-            .disposed(by: bag)
-        
-        txtUsername.rx
-            .controlEvent(.editingChanged)
-            .map {[unowned self] in String(txtUsername.text?.prefix(10) ?? "")}
-            .bind(to: txtUsername.rx.text)
+        output.enableSubmit
+            .drive(rx.isEnable)
             .disposed(by: bag)
         
         txtPassword.rx
@@ -113,17 +112,22 @@ class LoginVC: UIViewController {
             .bind(to: txtPassword.rx.text)
             .disposed(by: bag)
         
-        btnLogin.rx
-            .tap.mapToVoid()
-            .bind{ self.routeToMovie()}
-            .disposed(by: bag)
-        
         RxKeyboard.instance.visibleHeight
             .drive(rx.keyboardHeightChanged)
             .disposed(by: bag)
         
     }
-
+    @IBAction func gotToMovie(_ sender: Any) {
+        routeToMovie()
+    }
+    
+    func resetErrors() {
+        lblEmail.textColor = .black
+        txtUsername.layer.borderColor = UIColor.black.cgColor
+        
+        lblPassword.textColor = .black
+        txtPassword.layer.borderColor = UIColor.black.cgColor
+    }
     
     func routeToMovie() {
         let vc = MovieVC.screen()
@@ -150,20 +154,6 @@ class LoginVC: UIViewController {
 }
 
 extension Reactive where Base: LoginVC {
-    
-    var userNameValidation: Binder<Bool> {
-        return Binder(base) { vc, isValid in
-            vc.lblEmail.textColor = !isValid ? .red : .black
-            vc.txtUsername.layer.borderColor = !isValid ? UIColor.red.cgColor : UIColor.black.cgColor
-        }
-    }
-    
-    var isPasswordInvalid: Binder<Bool> {
-        return Binder(base) { vc, isValid in
-            vc.lblPassword.textColor = !isValid ? .red : .black
-            vc.txtPassword.layer.borderColor = !isValid ? UIColor.red.cgColor : UIColor.black.cgColor
-        }
-    }
     
     var isEnable: Binder<Bool> {
         return Binder(base) { vc, isValid in
