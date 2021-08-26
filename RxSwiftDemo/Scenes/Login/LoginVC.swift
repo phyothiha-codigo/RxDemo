@@ -76,6 +76,8 @@ class LoginVC: UIViewController {
             .share()
                 
         let passwordValidation = txtPassword.rx.text.orEmpty
+            .map(digitsOnly)
+            .do(onNext: setPreservingCursor(on: txtPassword))
             .map { $0.count >= requiredPasswordLength }
             .share()
         
@@ -97,6 +99,18 @@ class LoginVC: UIViewController {
             .bind(to: rx.isPasswordInvalid)
             .disposed(by: bag)
         
+        txtUsername.rx
+            .controlEvent(.editingChanged)
+            .map {[unowned self] in String(txtUsername.text?.prefix(10) ?? "")}
+            .bind(to: txtUsername.rx.text)
+            .disposed(by: bag)
+        
+        txtPassword.rx
+            .controlEvent(.editingChanged)
+            .map {[unowned self] in String(txtPassword.text?.prefix(15) ?? "")}
+            .bind(to: txtPassword.rx.text)
+            .disposed(by: bag)
+        
     }
     
     @IBAction func login(_ sender: Any) {
@@ -109,6 +123,21 @@ class LoginVC: UIViewController {
         nav.modalPresentationStyle = .fullScreen
         nav.modalTransitionStyle = .crossDissolve
         present(nav, animated: true, completion: nil)
+    }
+    
+    func digitsOnly(_ text: String) -> String {
+        return text.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: "")
+    }
+
+    func setPreservingCursor(on textField: UITextField) -> (_ newText: String) -> Void {
+        return { newText in
+            let cursorPosition = textField.offset(from: textField.beginningOfDocument,
+                                                  to: textField.selectedTextRange!.start) + newText.count - (textField.text?.count ?? 0)
+            textField.text = newText
+            if let newPosition = textField.position(from: textField.beginningOfDocument, offset: cursorPosition) {
+                textField.selectedTextRange = textField.textRange(from: newPosition, to: newPosition)
+            }
+        }
     }
 }
 
