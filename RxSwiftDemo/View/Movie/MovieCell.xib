@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="MovieCell" customModule="RxSwiftDemo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="204" height="265"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="204" height="265"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uBw-ba-T9x">
+                        <rect key="frame" x="0.0" y="0.0" width="204" height="226.5"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f8u-qo-E2h">
+                        <rect key="frame" x="12" y="238.5" width="180" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="uBw-ba-T9x" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Pd7-pz-eml"/>
+                <constraint firstAttribute="bottom" secondItem="f8u-qo-E2h" secondAttribute="bottom" constant="12" id="R1a-gN-jTp"/>
+                <constraint firstAttribute="trailing" secondItem="f8u-qo-E2h" secondAttribute="trailing" constant="12" id="bGv-Fj-Dug"/>
+                <constraint firstItem="uBw-ba-T9x" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="d3a-Ml-7nC"/>
+                <constraint firstItem="f8u-qo-E2h" firstAttribute="top" secondItem="uBw-ba-T9x" secondAttribute="bottom" constant="12" id="hWZ-VA-7nw"/>
+                <constraint firstAttribute="trailing" secondItem="uBw-ba-T9x" secondAttribute="trailing" id="loL-Qt-KuQ"/>
+                <constraint firstItem="f8u-qo-E2h" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="12" id="xMP-fs-dV8"/>
+            </constraints>
+            <size key="customSize" width="204" height="265"/>
+            <connections>
+                <outlet property="imgMovie" destination="uBw-ba-T9x" id="KkX-el-Xk5"/>
+                <outlet property="lblMovieName" destination="f8u-qo-E2h" id="tPH-Zr-Xv1"/>
+            </connections>
+            <point key="canvasLocation" x="249.27536231884059" y="129.57589285714286"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
