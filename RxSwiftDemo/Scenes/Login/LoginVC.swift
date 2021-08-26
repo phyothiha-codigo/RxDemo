@@ -72,39 +72,29 @@ class LoginVC: UIViewController {
     private func setupBindings() {
         
         let userNameValidaton = txtUsername.rx.text.orEmpty
-            .do(onNext:{_ in self.lblEmail.textColor = .black })
             .map { $0.count >= requiredUserNameLength }
             .share()
-        
-        let invalidUserName = userNameValidaton
-                .filter { !$0}
-                .map {_ in  UIColor.red }
-        
+                
         let passwordValidation = txtPassword.rx.text.orEmpty
-            .do(onNext:{_ in self.lblPassword.textColor = .black })
             .map { $0.count >= requiredPasswordLength }
             .share()
-        
-        let invalidPassword = passwordValidation
-                .filter { !$0}
-                .map {_ in  UIColor.red }
         
         let allValid = Observable
             .combineLatest(userNameValidaton, passwordValidation) { $0 && $1}
             .debug()
         
         allValid
-            .bind(to: btnLogin.rx.isEnabled)
+            .bind(to: rx.isEnable)
             .disposed(by: bag)
         
-        invalidUserName
+        userNameValidaton
             .skip(1)
-            .bind(to: self.lblEmail.rx.textColor)
+            .bind(to: rx.userNameValidation)
             .disposed(by: bag)
         
-        invalidPassword
+        passwordValidation
             .skip(1)
-            .bind(to: self.lblPassword.rx.textColor)
+            .bind(to: rx.isPasswordInvalid)
             .disposed(by: bag)
         
     }
@@ -119,5 +109,29 @@ class LoginVC: UIViewController {
         nav.modalPresentationStyle = .fullScreen
         nav.modalTransitionStyle = .crossDissolve
         present(nav, animated: true, completion: nil)
+    }
+}
+
+extension Reactive where Base: LoginVC {
+    
+    var userNameValidation: Binder<Bool> {
+        return Binder(base) { vc, isValid in
+            vc.lblEmail.textColor = !isValid ? .red : .black
+            vc.txtUsername.layer.borderColor = !isValid ? UIColor.red.cgColor : UIColor.black.cgColor
+        }
+    }
+    
+    var isPasswordInvalid: Binder<Bool> {
+        return Binder(base) { vc, isValid in
+            vc.lblPassword.textColor = !isValid ? .red : .black
+            vc.txtPassword.layer.borderColor = !isValid ? UIColor.red.cgColor : UIColor.black.cgColor
+        }
+    }
+    
+    var isEnable: Binder<Bool> {
+        return Binder(base) { vc, isValid in
+            vc.btnLogin.isEnabled = isValid
+            vc.btnLogin.backgroundColor = isValid ? .black : .gray
+        }
     }
 }
