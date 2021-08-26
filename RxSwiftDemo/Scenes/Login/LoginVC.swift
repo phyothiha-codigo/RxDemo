@@ -113,15 +113,17 @@ class LoginVC: UIViewController {
             .bind(to: txtPassword.rx.text)
             .disposed(by: bag)
         
+        btnLogin.rx
+            .tap.mapToVoid()
+            .bind{ self.routeToMovie()}
+            .disposed(by: bag)
+        
         RxKeyboard.instance.visibleHeight
             .drive(rx.keyboardHeightChanged)
             .disposed(by: bag)
         
     }
-    
-    @IBAction func login(_ sender: Any) {
-        routeToMovie()
-    }
+
     
     func routeToMovie() {
         let vc = MovieVC.screen()
