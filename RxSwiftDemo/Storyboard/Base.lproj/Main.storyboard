@@ -364,6 +364,7 @@
                         <outlet property="lblEmail" destination="RTc-km-tkz" id="bxR-uC-vkA"/>
                         <outlet property="lblPassword" destination="311-65-SeU" id="ovh-2t-dB2"/>
                         <outlet property="lblTitle" destination="TJB-hW-dWy" id="JQQ-uQ-nBC"/>
+                        <outlet property="topConstraint" destination="CTv-Yu-5yh" id="rRo-zt-Ofz"/>
                         <outlet property="txtPassword" destination="wOV-X6-fPY" id="MFt-B2-zCC"/>
                         <outlet property="txtUsername" destination="WaP-vz-DMQ" id="gc9-PN-Jv0"/>
                     </connections>

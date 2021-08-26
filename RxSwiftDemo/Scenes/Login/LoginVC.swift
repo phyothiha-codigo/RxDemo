@@ -9,6 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxSwiftExt
+import RxKeyboard
 
 let requiredUserNameLength = 5
 let requiredPasswordLength = 5
@@ -25,6 +26,7 @@ class LoginVC: UIViewController {
     @IBOutlet weak var imgPerson: UIImageView!
     @IBOutlet weak var lblEmail: UILabel!
     @IBOutlet weak var lblPassword: UILabel!
+    @IBOutlet weak var topConstraint: NSLayoutConstraint!
     
     var isLoading: Bool = false
     lazy var bag = DisposeBag()
@@ -111,6 +113,10 @@ class LoginVC: UIViewController {
             .bind(to: txtPassword.rx.text)
             .disposed(by: bag)
         
+        RxKeyboard.instance.visibleHeight
+            .drive(rx.keyboardHeightChanged)
+            .disposed(by: bag)
+        
     }
     
     @IBAction func login(_ sender: Any) {
@@ -161,6 +167,18 @@ extension Reactive where Base: LoginVC {
         return Binder(base) { vc, isValid in
             vc.btnLogin.isEnabled = isValid
             vc.btnLogin.backgroundColor = isValid ? .black : .gray
+        }
+    }
+    
+    var keyboardHeightChanged: Binder<CGFloat> {
+        return Binder(base) { vc, height in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                UIView.animate(withDuration: 0.5, animations: {
+                    vc.topConstraint.constant = height == 0 ? 52 : 32
+                    vc.view.layoutIfNeeded()
+                })
+            }
+            
         }
     }
 }
